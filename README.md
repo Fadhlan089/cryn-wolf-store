@@ -1,4 +1,5 @@
-Nama Kelompok: Cryn Wolf Store
+#Cryn Wolf Store
+
 Nama Anggota: Muhammad Fadhlan Fadhillah
 
 Fitur:
