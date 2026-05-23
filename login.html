@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Cryn Wolf Store</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(to right,#ff9800,#ff5722);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            width:350px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:20px;
+            color:#ff5722;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border:none;
+            background:#ff5722;
+            color:white;
+            font-size:16px;
+            border-radius:5px;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+        button:hover{
+            background:#e64a19;
+        }
+
+        .admin-btn{
+            background:#333;
+        }
+
+        .admin-btn:hover{
+            background:#111;
+        }
+
+        .info{
+            text-align:center;
+            margin-top:15px;
+            color:green;
+            font-weight:bold;
+        }
+
+        .back{
+            text-align:center;
+            margin-top:15px;
+        }
+
+        .back a{
+            text-decoration:none;
+            color:#ff5722;
+            font-weight:bold;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Cryn Wolf Store</h1>
+
+        <input type="text" id="username" placeholder="Enter Username">
+
+        <input type="password" id="password" placeholder="Enter Password">
+
+        <button onclick="loginUser()">
+            Login User
+        </button>
+
+        <button class="admin-btn" onclick="loginAdmin()">
+            Login Admin
+        </button>
+
+        <button onclick="registerUser()">
+            Register
+        </button>
+
+        <div class="info" id="message"></div>
+
+        <div class="back">
+            <a href="index.html">← Back to Home</a>
+        </div>
+
+    </div>
+
+    <script>
+
+        function registerUser(){
+
+            let username =
+            document.getElementById("username").value;
+
+            let password =
+            document.getElementById("password").value;
+
+            if(username === "" || password === ""){
+                alert("Please fill all fields!");
+                return;
+            }
+
+            localStorage.setItem("user", username);
+            localStorage.setItem("password", password);
+
+            document.getElementById("message").innerHTML =
+            "Register Successful!";
+        }
+
+        function loginUser(){
+
+            let username =
+            document.getElementById("username").value;
+
+            let savedUser =
+            localStorage.getItem("user");
+
+            if(username === savedUser){
+
+                document.getElementById("message").innerHTML =
+                "User Login Successful!";
+
+                setTimeout(() => {
+                    window.location.href = "store.html";
+                },1000);
+
+            }else{
+
+                alert("User not found!");
+            }
+        }
+
+        function loginAdmin(){
+
+            let username =
+            document.getElementById("username").value;
+
+            let password =
+            document.getElementById("password").value;
+
+            if(username === "admin" && password === "admin123"){
+
+                document.getElementById("message").innerHTML =
+                "Admin Login Successful!";
+
+                setTimeout(() => {
+                    window.location.href = "admin.html";
+                },1000);
+
+            }else{
+
+                alert("Wrong admin username or password!");
+            }
+        }
+
+    </script>
+
+</body>
+</html>
