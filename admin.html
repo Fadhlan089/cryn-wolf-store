@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
 
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:20px;
+}
+
+h1{
+    color:#ff5722;
+}
+
+input{
+    padding:10px;
+    margin:5px;
+}
+
+button{
+    padding:10px;
+    background:#ff5722;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.product{
+    background:white;
+    padding:15px;
+    margin-top:10px;
+    border-radius:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<input type="text" id="productName" placeholder="Product Name">
+
+<input type="number" id="productPrice" placeholder="Price">
+
+<button onclick="addProduct()">
+Add Product
+</button>
+
+<h2>Product List</h2>
+
+<div id="productList"></div>
+
+<script>
+
+let products = JSON.parse(localStorage.getItem("products")) || [
+    {name:"Chitato", price:10000},
+    {name:"Oreo", price:8000},
+    {name:"Teh Botol", price:6000}
+];
+
+function saveProducts(){
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+}
+
+function displayProducts(){
+
+    let list =
+    document.getElementById("productList");
+
+    list.innerHTML = "";
+
+    products.forEach((product,index)=>{
+
+        list.innerHTML += `
+        <div class="product">
+
+            <h3>${product.name}</h3>
+
+            <p>Rp ${product.price}</p>
+
+            <button onclick="editProduct(${index})">
+            Edit
+            </button>
+
+            <button onclick="deleteProduct(${index})">
+            Delete
+            </button>
+
+        </div>
+        `;
+    });
+}
+
+function addProduct(){
+
+    let name =
+    document.getElementById("productName").value;
+
+    let price =
+    document.getElementById("productPrice").value;
+
+    if(name === "" || price === ""){
+        alert("Fill all fields!");
+        return;
+    }
+
+    products.push({
+        name:name,
+        price:parseInt(price)
+    });
+
+    saveProducts();
+    displayProducts();
+
+    alert("Product Added!");
+}
+
+function editProduct(index){
+
+    let newName =
+    prompt("Edit product name:");
+
+    let newPrice =
+    prompt("Edit product price:");
+
+    if(newName && newPrice){
+
+        products[index].name = newName;
+        products[index].price = parseInt(newPrice);
+
+        saveProducts();
+        displayProducts();
+
+        alert("Product Updated!");
+    }
+}
+
+function deleteProduct(index){
+
+    products.splice(index,1);
+
+    saveProducts();
+    displayProducts();
+
+    alert("Product Deleted!");
+}
+
+displayProducts();
+
+</script>
+
+</body>
+</html>

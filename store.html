@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store</title>
 
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:20px;
+}
+
+.product{
+    background:white;
+    padding:20px;
+    margin:10px 0;
+    border-radius:5px;
+}
+
+button{
+    padding:10px;
+    background:#ff5722;
+    color:white;
+    border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Cryn Wolf Store</h1>
+
+<div id="storeProducts"></div>
+
+<script>
+
+let products =
+JSON.parse(localStorage.getItem("products")) || [];
+
+let container =
+document.getElementById("storeProducts");
+
+products.forEach(product=>{
+
+    container.innerHTML += `
+    <div class="product">
+
+        <h2>${product.name}</h2>
+
+        <p>Price: Rp ${product.price}</p>
+
+        <button>
+        Buy Now
+        </button>
+
+    </div>
+    `;
+});
+
+</script>
+
+</body>
+</html>

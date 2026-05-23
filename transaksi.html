@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction</title>
 
+<style>
+
+body{
+    font-family:Arial;
+    padding:20px;
+    background:#f4f4f4;
+}
+
+input,select{
+    padding:10px;
+    margin:10px 0;
+    width:300px;
+}
+
+button{
+    padding:10px;
+    background:#ff5722;
+    color:white;
+    border:none;
+}
+
+.result{
+    margin-top:20px;
+    background:white;
+    padding:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Transaction Page</h1>
+
+<input type="text" id="customerName"
+placeholder="Customer Name">
+
+<br>
+
+<select id="product">
+<option value="10000">Chitato - Rp10.000</option>
+<option value="8000">Oreo - Rp8.000</option>
+<option value="6000">Teh Botol - Rp6.000</option>
+</select>
+
+<br>
+
+<label>
+<input type="checkbox" id="booking">
+Book Queue (+Rp2.000)
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="delivery">
+Delivery Order
+</label>
+
+<br><br>
+
+<button onclick="checkout()">
+Checkout
+</button>
+
+<div class="result" id="result"></div>
+
+<script>
+
+const members = [
+"Ustadz Ahmad",
+"Ustadz Ali",
+"Ustadz Yusuf",
+"Ustadz Umar",
+"Ustadz Hasan"
+];
+
+function checkout(){
+
+    let name =
+    document.getElementById("customerName").value;
+
+    let total =
+    parseInt(
+    document.getElementById("product").value
+    );
+
+    let booking =
+    document.getElementById("booking").checked;
+
+    let delivery =
+    document.getElementById("delivery").checked;
+
+    let discount = 0;
+
+    if(members.includes(name)){
+
+        discount = total * 0.2;
+        total -= discount;
+    }
+
+    if(booking){
+        total += 2000;
+    }
+
+    let deliveryText =
+    delivery ? "Yes" : "No";
+
+    document.getElementById("result").innerHTML = `
+    <h2>Transaction Result</h2>
+
+    <p>Name: ${name}</p>
+
+    <p>Membership Discount:
+    Rp ${discount}</p>
+
+    <p>Delivery Order:
+    ${deliveryText}</p>
+
+    <p>Tracking Status:
+    Diproses → Dikirim → Selesai</p>
+
+    <h3>Total Payment:
+    Rp ${total}</h3>
+    `;
+}
+
+</script>
+
+</body>
+</html>
